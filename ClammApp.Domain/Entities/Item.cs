@@ -1,5 +1,3 @@
-using ClammApp.Domain.Enums;
-
 namespace ClammApp.Domain.Entities;
 
 public class Item
@@ -10,7 +8,7 @@ public class Item
 
     public string Descripcion { get; set; } = string.Empty;
 
-    public Unidad Unidad { get; set; }
+    public string Unidad { get; set; } = string.Empty;
 
     public decimal PrecioUnitario { get; set; }
 

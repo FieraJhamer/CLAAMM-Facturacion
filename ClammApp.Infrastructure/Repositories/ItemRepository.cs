@@ -1,7 +1,6 @@
 using System.Globalization;
 using ClammApp.Domain.Contracts;
 using ClammApp.Domain.Entities;
-using ClammApp.Domain.Enums;
 using ClammApp.Infrastructure.Data;
 using Dapper;
 using Microsoft.Data.Sqlite;

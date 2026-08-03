@@ -1,8 +1,9 @@
 <Window x:Class="ClammApp.UI.Views.ConfiguracionWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Configuración" Height="640" Width="560"
-        WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+        Title="Configuración" Width="560" Height="640"
+        MinWidth="480" MinHeight="480"
+        WindowStartupLocation="CenterOwner">
     <Grid Margin="26">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

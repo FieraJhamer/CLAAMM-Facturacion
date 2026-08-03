@@ -74,4 +74,10 @@ public partial class ItemsView : UserControl
         if (ventana.ShowDialog() == true)
             Cargar();
     }
+
+    private void BtnUnidades_Click(object sender, RoutedEventArgs e)
+    {
+        var ventana = new UnidadesWindow { Owner = Window.GetWindow(this) };
+        ventana.ShowDialog();
+    }
 }

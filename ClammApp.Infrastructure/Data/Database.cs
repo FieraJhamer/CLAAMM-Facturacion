@@ -28,6 +28,16 @@ public static class Database
                 Nombre TEXT NOT NULL UNIQUE
             );
 
+            CREATE TABLE IF NOT EXISTS Unidades (
+                Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                Nombre TEXT NOT NULL UNIQUE
+            );
+
+            INSERT OR IGNORE INTO Unidades (Nombre) VALUES ('m2'), ('m3'), ('un'), ('grl');
+
+            INSERT OR IGNORE INTO Unidades (Nombre)
+            SELECT DISTINCT Unidad FROM Items WHERE TRIM(Unidad) <> '';
+
             CREATE TABLE IF NOT EXISTS Presupuestos (
                 Id INTEGER PRIMARY KEY AUTOINCREMENT,
                 ClienteNombre TEXT NOT NULL,

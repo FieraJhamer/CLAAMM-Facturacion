@@ -10,6 +10,7 @@ public partial class ConfiguracionWindow : Window
     public ConfiguracionWindow()
     {
         InitializeComponent();
+        Ventanas.AjustarAlAreaTrabajo(this);
 
         var empresa = Composicion.Configuracion.ObtenerEmpresa();
         TxtRazonSocial.Text = empresa.RazonSocial;

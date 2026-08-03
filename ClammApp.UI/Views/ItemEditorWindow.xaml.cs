@@ -1,7 +1,6 @@
 using System.Windows;
 using ClammApp.Application;
 using ClammApp.Domain.Entities;
-using ClammApp.Domain.Enums;
 
 namespace ClammApp.UI.Views;
 
@@ -12,16 +11,17 @@ public partial class ItemEditorWindow : Window
     public ItemEditorWindow(Item item)
     {
         InitializeComponent();
+        Ventanas.AjustarAlAreaTrabajo(this);
 
         _item = item;
 
         TituloVentana.Text = item.Id == 0 ? "Nuevo ítem" : "Editar ítem";
 
-        CboUnidad.ItemsSource = Enum.GetValues<Unidad>();
+        CboUnidad.ItemsSource = Composicion.Unidades.ObtenerTodos().Select(u => u.Nombre).ToList();
         CboRubro.ItemsSource = Composicion.Rubros.ObtenerTodos().Select(r => r.Nombre).ToList();
 
         TxtDescripcion.Text = item.Descripcion;
-        CboUnidad.SelectedItem = item.Unidad;
+        CboUnidad.Text = item.Unidad;
         TxtPrecio.Text = item.PrecioUnitario == 0 ? string.Empty : item.PrecioUnitario.ToString("#,##0.00");
         CboRubro.Text = item.Rubro;
     }
@@ -31,7 +31,7 @@ public partial class ItemEditorWindow : Window
     private void BtnGuardar_Click(object sender, RoutedEventArgs e)
     {
         _item.Descripcion = TxtDescripcion.Text.Trim();
-        _item.Unidad = (Unidad)(CboUnidad.SelectedItem ?? Unidad.un);
+        _item.Unidad = string.IsNullOrWhiteSpace(CboUnidad.Text) ? "un" : CboUnidad.Text.Trim();
         _item.Rubro = CboRubro.Text?.Trim() ?? string.Empty;
 
         if (!decimal.TryParse(TxtPrecio.Text, out var precio))

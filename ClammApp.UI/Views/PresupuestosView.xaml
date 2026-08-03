@@ -6,20 +6,8 @@
             <TextBlock Text="Presupuestos" Style="{StaticResource TituloPantalla}"/>
         </DockPanel>
 
-        <Border DockPanel.Dock="Top" Background="White" BorderBrush="{StaticResource BrochaBorde}"
-                BorderThickness="1" CornerRadius="8" Margin="0,0,0,16">
-            <DataGrid x:Name="GridPresupuestos" Height="420"
-                      MouseDoubleClick="GridPresupuestos_MouseDoubleClick">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Nº" Binding="{Binding Numero}" Width="80"/>
-                    <DataGridTextColumn Header="Cliente" Binding="{Binding Cliente}" Width="*"/>
-                    <DataGridTextColumn Header="Fecha" Binding="{Binding FechaTexto}" Width="120"/>
-                    <DataGridTextColumn Header="Total" Binding="{Binding TotalTexto}" Width="140"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </Border>
-
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right"
+                    Margin="0,16,0,0">
             <Button Content="Exportar PDF" Style="{StaticResource BotonSecundario}"
                     Margin="0,0,10,0" Click="BtnExportar_Click"/>
             <Button Content="Eliminar" Style="{StaticResource BotonPeligro}"
@@ -29,5 +17,19 @@
             <Button Content="Nuevo presupuesto" Style="{StaticResource BotonPrincipal}"
                     Click="BtnNuevo_Click"/>
         </StackPanel>
+
+        <Border Background="White" BorderBrush="{StaticResource BrochaBorde}"
+                BorderThickness="1" CornerRadius="8">
+            <DataGrid x:Name="GridPresupuestos"
+                      IsReadOnly="True"
+                      MouseDoubleClick="GridPresupuestos_MouseDoubleClick">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nº" Binding="{Binding Numero}" Width="80"/>
+                    <DataGridTextColumn Header="Cliente" Binding="{Binding Cliente}" Width="*"/>
+                    <DataGridTextColumn Header="Fecha" Binding="{Binding FechaTexto}" Width="120"/>
+                    <DataGridTextColumn Header="Total" Binding="{Binding TotalTexto}" Width="140"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
     </DockPanel>
 </UserControl>

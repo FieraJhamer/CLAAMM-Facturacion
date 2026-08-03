@@ -4,9 +4,9 @@ using ClammApp.Domain.Entities;
 
 namespace ClammApp.UI.Views;
 
-public partial class RubrosWindow : Window
+public partial class UnidadesWindow : Window
 {
-    public RubrosWindow()
+    public UnidadesWindow()
     {
         InitializeComponent();
         Ventanas.AjustarAlAreaTrabajo(this);
@@ -15,12 +15,12 @@ public partial class RubrosWindow : Window
 
     private void Cargar()
     {
-        ListaRubros.ItemsSource = Composicion.Rubros.ObtenerTodos().ToList();
+        ListaUnidades.ItemsSource = Composicion.Unidades.ObtenerTodos().ToList();
     }
 
-    private void ListaRubros_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void ListaUnidades_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        var seleccionado = ListaRubros.SelectedItem as Rubro;
+        var seleccionado = ListaUnidades.SelectedItem as UnidadMedida;
         BtnEditar.IsEnabled = seleccionado != null;
         BtnEliminar.IsEnabled = seleccionado != null;
 
@@ -32,7 +32,7 @@ public partial class RubrosWindow : Window
     {
         try
         {
-            Composicion.Rubros.Agregar(TxtNombre.Text);
+            Composicion.Unidades.Agregar(TxtNombre.Text);
             TxtNombre.Clear();
             Cargar();
         }
@@ -44,12 +44,12 @@ public partial class RubrosWindow : Window
 
     private void BtnEditar_Click(object sender, RoutedEventArgs e)
     {
-        if (ListaRubros.SelectedItem is not Rubro rubro)
+        if (ListaUnidades.SelectedItem is not UnidadMedida unidad)
             return;
 
         try
         {
-            Composicion.Rubros.Actualizar(rubro.Id, TxtNombre.Text);
+            Composicion.Unidades.Actualizar(unidad.Id, TxtNombre.Text);
             Cargar();
         }
         catch (Exception ex)
@@ -60,19 +60,19 @@ public partial class RubrosWindow : Window
 
     private void BtnEliminar_Click(object sender, RoutedEventArgs e)
     {
-        if (ListaRubros.SelectedItem is not Rubro rubro)
+        if (ListaUnidades.SelectedItem is not UnidadMedida unidad)
             return;
 
         var confirmar = MessageBox.Show(
             this,
-            $"¿Eliminar el rubro \"{rubro.Nombre}\"?\nLos ítems que lo usan conservarán el texto del rubro.",
+            $"¿Eliminar la unidad \"{unidad.Nombre}\"?\nLos ítems que la usan conservarán el texto de la unidad.",
             "Confirmar eliminación",
             MessageBoxButton.YesNo,
             MessageBoxImage.Question);
 
         if (confirmar == MessageBoxResult.Yes)
         {
-            Composicion.Rubros.Eliminar(rubro.Id);
+            Composicion.Unidades.Eliminar(unidad.Id);
             Cargar();
         }
     }

@@ -16,7 +16,7 @@ public class ItemListaViewModel
 
     public string Descripcion => Item.Descripcion;
 
-    public string Unidad => Item.Unidad.ToString();
+    public string Unidad => Item.Unidad;
 
     public string PrecioTexto => Formatos.Moneda(Item.PrecioUnitario);
 

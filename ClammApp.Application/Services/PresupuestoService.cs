@@ -44,7 +44,7 @@ public class PresupuestoService
         {
             ItemId = item.Id,
             Descripcion = item.Descripcion,
-            Unidad = item.Unidad.ToString(),
+            Unidad = item.Unidad,
             Cantidad = cantidad,
             PrecioUnitario = item.PrecioUnitario
         });

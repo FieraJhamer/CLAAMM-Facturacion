@@ -1,17 +1,18 @@
 using ClammApp.Application.Exceptions;
 using ClammApp.Domain.Contracts;
 using ClammApp.Domain.Entities;
-using ClammApp.Domain.Enums;
 
 namespace ClammApp.Application.Services;
 
 public class ItemService
 {
     private readonly IItemRepository _repositorio;
+    private readonly IUnidadRepository _unidades;
 
-    public ItemService(IItemRepository repositorio)
+    public ItemService(IItemRepository repositorio, IUnidadRepository unidades)
     {
         _repositorio = repositorio;
+        _unidades = unidades;
     }
 
     public IEnumerable<Item> ObtenerTodos() => _repositorio.GetAll();
@@ -24,7 +25,7 @@ public class ItemService
         return _repositorio.Buscar(texto.Trim());
     }
 
-    public Item CrearNuevo() => new() { Unidad = Unidad.un };
+    public Item CrearNuevo() => new() { Unidad = "un" };
 
     public Item? Obtener(int id) => _repositorio.ObtenerPorId(id);
 
@@ -44,6 +45,8 @@ public class ItemService
         {
             _repositorio.Actualizar(item);
         }
+
+        _unidades.Asegurar(item.Unidad);
     }
 
     public void Eliminar(int id) => _repositorio.Eliminar(id);

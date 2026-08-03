@@ -7,6 +7,7 @@ public partial class IncrementoPreciosWindow : Window
     public IncrementoPreciosWindow()
     {
         InitializeComponent();
+        Ventanas.AjustarAlAreaTrabajo(this);
         TxtPorcentaje.Focus();
     }
 

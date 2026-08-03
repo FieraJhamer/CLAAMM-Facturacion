@@ -17,6 +17,7 @@ public partial class PresupuestoEditorWindow : Window
     public PresupuestoEditorWindow(Domain.Entities.Presupuesto presupuesto)
     {
         InitializeComponent();
+        Ventanas.AjustarAlAreaTrabajo(this);
 
         _presupuesto = presupuesto;
 
@@ -57,7 +58,14 @@ public partial class PresupuestoEditorWindow : Window
 
     private void BuscarItems()
     {
-        var items = Composicion.Items.Buscar(TxtBuscarItem.Text.Trim());
+        var texto = TxtBuscarItem.Text.Trim();
+        if (string.IsNullOrWhiteSpace(texto))
+        {
+            ListaResultados.ItemsSource = null;
+            return;
+        }
+
+        var items = Composicion.Items.Buscar(texto);
         ListaResultados.ItemsSource = items.Select(i => new ItemListaViewModel(i)).ToList();
     }
 
