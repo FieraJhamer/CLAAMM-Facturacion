@@ -1,0 +1,82 @@
+## .NET / build
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+*.user
+*.suo
+*.userprefs
+*.tmp
+*.log
+*.pubxml
+TestResults/
+
+## .NET
+project.lock.json
+project.fragment.lock.json
+artifacts/
+*.nupkg
+*.snupkg
+*.nuget.props
+*.nuget.targets
+*.ncrunch-project*
+.vs/
+
+## Paquetes restaurados
+packages/
+*.nuget.cache
+*.nuget.log
+
+## Bases de datos locales (por seguridad, si llegara a copiarse al repo)
+*.db
+*.db-journal
+*.sqlite
+
+## Visual Studio
+.vs/
+*.vsidx
+*.vssettings
+.vsconfig
+*.userosscache
+*_i.c
+*_p.c
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pdb
+*.scc
+*.swp
+*.m~
+*ncb
+*~.bak
+*~.tmp
+*.ilk
+*.ipch
+*.log
+*.opt
+*.prefs
+*.publishsettings
+*.v10proj.user
+
+## JetBrains Rider
+.idea/
+*.sln.iml
+
+## VS Code
+.vscode/
+*.code-workspace
+
+## Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+## Archivos generados / temporales
+tmp/
+temp/
+*.bak
+*.orig
+backup/

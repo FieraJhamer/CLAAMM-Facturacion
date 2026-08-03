@@ -1,0 +1,41 @@
+﻿<Window x:Class="ClammApp.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ui="clr-namespace:ClammApp.UI.Views"
+        Title="CLAMM - Presupuestos" Height="720" Width="1120"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="230"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="{StaticResource BrochaGrafito}">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Top" Margin="20,26,20,24">
+                    <TextBlock Text="CLAMM" FontSize="30" FontWeight="Bold" Foreground="White"/>
+                    <Border Height="2" Background="{StaticResource BrochaPrimaria}" CornerRadius="1" Margin="0,6,0,0" Width="64" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Presupuestos" FontSize="14" Foreground="#B7BEC6" Margin="0,8,0,0"/>
+                </StackPanel>
+
+                <StackPanel DockPanel.Dock="Bottom" Margin="20,12">
+                    <TextBlock x:Name="TextoVersion" Text="CLAMM v1.0" FontSize="11" Foreground="#7E868F"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <Button x:Name="BtnPresupuestos" Content="&#x1F4DD;  Presupuestos"
+                            Style="{StaticResource BotonNavegacion}" Click="BtnPresupuestos_Click"/>
+                    <Button x:Name="BtnItems" Content="&#x1F4B0;  Ítems de precios"
+                            Style="{StaticResource BotonNavegacion}" Click="BtnItems_Click"/>
+                    <Button x:Name="BtnRubros" Content="&#x1F4C1;  Rubros"
+                            Style="{StaticResource BotonNavegacion}" Click="BtnRubros_Click"/>
+                    <Button x:Name="BtnConfig" Content="&#x2699;  Configuración"
+                            Style="{StaticResource BotonNavegacion}" Click="BtnConfig_Click"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <ContentControl x:Name="Contenido" Grid.Column="1"
+                        Background="{StaticResource BrochaFondo}"/>
+    </Grid>
+</Window>
