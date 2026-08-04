@@ -125,26 +125,4 @@ public class ItemRepositoryTests : RepositorioTestBase
         Assert.Null(_repositorio.ObtenerPorId(id));
         Assert.Empty(_repositorio.GetAll());
     }
-
-    [Fact]
-    public void IncrementarPrecios_AplicaPorcentajeATodos()
-    {
-        InsertarItem("A", precio: 100);
-        InsertarItem("B", precio: 200);
-
-        _repositorio.IncrementarPrecios(10);
-
-        var precios = _repositorio.GetAll().Select(i => i.PrecioUnitario).OrderBy(p => p).ToList();
-        Assert.Equal(new[] { 110m, 220m }, precios);
-    }
-
-    [Fact]
-    public void IncrementarPrecios_RedondeaADosDecimales()
-    {
-        InsertarItem("A", precio: 33.33m);
-
-        _repositorio.IncrementarPrecios(5);
-
-        Assert.Equal(35m, _repositorio.GetAll().Single().PrecioUnitario);
-    }
 }

@@ -35,7 +35,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBox x:Name="TxtNombre" Height="34"/>
                 <Button Grid.Column="2" x:Name="BtnAgregar" Content="Agregar" Style="{StaticResource BotonPrincipal}"
-                        Height="34" Click="BtnAgregar_Click"/>
+                        Height="34" Padding="16,6" Click="BtnAgregar_Click"/>
             </Grid>
 
             <StackPanel Orientation="Horizontal" Margin="0,12,0,0">

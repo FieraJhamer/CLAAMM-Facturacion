@@ -50,12 +50,4 @@ public class ItemService
     }
 
     public void Eliminar(int id) => _repositorio.Eliminar(id);
-
-    public void IncrementarPrecios(decimal porcentaje)
-    {
-        if (porcentaje <= 0)
-            throw new ValidacionException("El porcentaje debe ser mayor a cero.");
-
-        _repositorio.IncrementarPrecios(porcentaje);
-    }
 }

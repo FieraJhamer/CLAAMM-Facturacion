@@ -62,11 +62,13 @@ public partial class PresupuestoEditorWindow : Window
         if (string.IsNullOrWhiteSpace(texto))
         {
             ListaResultados.ItemsSource = null;
+            ListaResultados.Visibility = Visibility.Collapsed;
             return;
         }
 
         var items = Composicion.Items.Buscar(texto);
         ListaResultados.ItemsSource = items.Select(i => new ItemListaViewModel(i)).ToList();
+        ListaResultados.Visibility = Visibility.Visible;
     }
 
     private void BtnAgregar_Click(object sender, RoutedEventArgs e) => AgregarSeleccionado();
@@ -91,15 +93,17 @@ public partial class PresupuestoEditorWindow : Window
         Composicion.Presupuestos.AgregarItem(_presupuesto, seleccion.Item, cantidad);
         _lineas.Add(CrearLinea(_presupuesto.Items[^1]));
         ActualizarTotal();
+
+        TxtBuscarItem.Clear();
+        ListaResultados.ItemsSource = null;
+        ListaResultados.Visibility = Visibility.Collapsed;
+        TxtBuscarItem.Focus();
     }
 
-    private void BtnQuitarLinea_Click(object sender, RoutedEventArgs e)
+    private void BtnEliminarLinea_Click(object sender, RoutedEventArgs e)
     {
-        if (GridLineas.SelectedItem is not LineaPresupuestoViewModel linea)
-        {
-            MessageBox.Show(this, "Seleccioná una línea para quitar.", "CLAAMM", MessageBoxButton.OK, MessageBoxImage.Information);
+        if (sender is not Button { DataContext: LineaPresupuestoViewModel linea })
             return;
-        }
 
         _lineas.Remove(linea);
         _presupuesto.Items.Remove(linea.Item);

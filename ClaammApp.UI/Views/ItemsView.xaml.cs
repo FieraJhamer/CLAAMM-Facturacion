@@ -68,13 +68,6 @@ public partial class ItemsView : UserControl
         }
     }
 
-    private void BtnIncrementar_Click(object sender, RoutedEventArgs e)
-    {
-        var ventana = new IncrementoPreciosWindow { Owner = Window.GetWindow(this) };
-        if (ventana.ShowDialog() == true)
-            Cargar();
-    }
-
     private void BtnUnidades_Click(object sender, RoutedEventArgs e)
     {
         var ventana = new UnidadesWindow { Owner = Window.GetWindow(this) };

@@ -1,8 +1,8 @@
 <Window x:Class="ClaammApp.UI.Views.PresupuestoEditorWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Presupuesto" Width="1000" Height="720"
-        MinWidth="820" MinHeight="580"
+        Title="Presupuesto" Width="1180" Height="800"
+        MinWidth="960" MinHeight="640"
         WindowStartupLocation="CenterOwner">
     <Grid Margin="24">
         <Grid.RowDefinitions>
@@ -62,10 +62,11 @@
                         </StackPanel>
 
                         <Button Grid.Column="4" Content="Agregar ítem" Style="{StaticResource BotonPrincipal}"
-                                VerticalAlignment="Bottom" Height="34" Click="BtnAgregar_Click"/>
+                                VerticalAlignment="Bottom" Height="34" Padding="16,6" Click="BtnAgregar_Click"/>
                     </Grid>
 
                     <ListBox x:Name="ListaResultados" Margin="0,10,0,0" MaxHeight="120"
+                             Visibility="Collapsed"
                              MouseDoubleClick="ListaResultados_MouseDoubleClick" BorderBrush="{StaticResource BrochaBorde}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
@@ -86,19 +87,24 @@
 
             <Border Grid.Row="2" Background="White" BorderBrush="{StaticResource BrochaBorde}"
                     BorderThickness="1" CornerRadius="8" Margin="0,0,0,12">
-                <DockPanel>
-                    <Button DockPanel.Dock="Top" Content="Quitar línea seleccionada" Style="{StaticResource BotonSecundario}"
-                            HorizontalAlignment="Right" Margin="12,12,12,0" Click="BtnQuitarLinea_Click"/>
-                    <DataGrid x:Name="GridLineas" Margin="12,12,12,12">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Descripción" Binding="{Binding Descripcion}" Width="*" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="Unidad" Binding="{Binding Unidad}" Width="70" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="Cantidad" Binding="{Binding CantidadTexto}" Width="100"/>
-                            <DataGridTextColumn Header="Precio Unitario" Binding="{Binding PrecioUnitarioTexto}" Width="130" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="Total" Binding="{Binding TotalTexto}" Width="140" IsReadOnly="True"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </DockPanel>
+                <DataGrid x:Name="GridLineas" Margin="12">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Descripción" Binding="{Binding Descripcion}" Width="*" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Unidad" Binding="{Binding Unidad}" Width="70" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Cantidad" Binding="{Binding CantidadTexto}" Width="100"/>
+                        <DataGridTextColumn Header="Precio Unitario" Binding="{Binding PrecioUnitarioTexto}" Width="130" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Total" Binding="{Binding TotalTexto}" Width="140" IsReadOnly="True"/>
+                        <DataGridTemplateColumn Header="" Width="86">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Eliminar" Style="{StaticResource BotonSecundario}"
+                                            Padding="8,2" FontSize="12" HorizontalAlignment="Center"
+                                            Click="BtnEliminarLinea_Click"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
             </Border>
 
             <DockPanel Grid.Row="3">

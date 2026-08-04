@@ -101,28 +101,6 @@ public class ItemServiceTests
     }
 
     [Fact]
-    public void IncrementarPrecios_Cero_LanzaValidacion()
-    {
-        Assert.Throws<ValidacionException>(() => _servicio.IncrementarPrecios(0));
-    }
-
-    [Fact]
-    public void IncrementarPrecios_Negativo_LanzaValidacion()
-    {
-        Assert.Throws<ValidacionException>(() => _servicio.IncrementarPrecios(-5));
-    }
-
-    [Fact]
-    public void IncrementarPrecios_Positivo_ActualizaPrecios()
-    {
-        _repositorio.Agregar(new Item { Id = 1, Descripcion = "A", PrecioUnitario = 100 });
-
-        _servicio.IncrementarPrecios(10);
-
-        Assert.Equal(110m, _repositorio.ObtenerPorId(1)!.PrecioUnitario);
-    }
-
-    [Fact]
     public void Eliminar_QuitaItem()
     {
         _repositorio.Agregar(new Item { Id = 1, Descripcion = "A" });

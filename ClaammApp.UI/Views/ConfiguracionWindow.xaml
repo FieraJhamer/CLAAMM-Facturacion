@@ -42,7 +42,7 @@
                     </Grid.ColumnDefinitions>
                     <TextBox x:Name="TxtLogo" Height="34"/>
                     <Button Grid.Column="2" Content="Examinar..." Style="{StaticResource BotonSecundario}"
-                            Height="34" Click="BtnExaminarLogo_Click"/>
+                            Height="34" Padding="16,6" Click="BtnExaminarLogo_Click"/>
                 </Grid>
                 <TextBlock Text="Si no se elige logo, se muestra un encabezado con el texto CLAAMM."
                            FontSize="11" Foreground="#718096" Margin="0,6,0,0" TextWrapping="Wrap"/>

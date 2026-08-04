@@ -39,11 +39,5 @@ public class FakeItemRepository : IItemRepository
 
     public string ObtenerProximoCodigo() => (_siguienteCodigo++).ToString("D7");
 
-    public void IncrementarPrecios(decimal porcentaje)
-    {
-        foreach (var item in _items)
-            item.AplicarIncremento(porcentaje);
-    }
-
     public void Agregar(Item item) => _items.Add(item);
 }

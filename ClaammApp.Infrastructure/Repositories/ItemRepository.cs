@@ -92,14 +92,6 @@ public class ItemRepository : IItemRepository
         return $"{n:D7}";
     }
 
-    public void IncrementarPrecios(decimal porcentaje)
-    {
-        using var c = new SqliteConnection(_connectionString);
-        c.Execute(
-            "UPDATE Items SET PrecioUnitario = ROUND(PrecioUnitario * (1 + @p / 100.0), 2)",
-            new { p = (double)porcentaje });
-    }
-
     private static string Normalizar(string texto)
     {
         var sinDiacriticos = new string(texto

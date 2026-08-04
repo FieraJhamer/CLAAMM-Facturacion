@@ -17,6 +17,4 @@ public interface IItemRepository
     void Eliminar(int id);
 
     string ObtenerProximoCodigo();
-
-    void IncrementarPrecios(decimal porcentaje);
 }
