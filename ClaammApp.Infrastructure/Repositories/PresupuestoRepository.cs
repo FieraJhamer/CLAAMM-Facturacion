@@ -8,6 +8,13 @@ namespace ClaammApp.Infrastructure.Repositories;
 
 public class PresupuestoRepository : IPresupuestoRepository
 {
+    private readonly string _connectionString;
+
+    public PresupuestoRepository(string? connectionString = null)
+    {
+        _connectionString = connectionString ?? Database.ConnectionString;
+    }
+
     private sealed class PresupuestoRow
     {
         public int Id { get; set; }
@@ -17,7 +24,7 @@ public class PresupuestoRepository : IPresupuestoRepository
 
     public IEnumerable<Presupuesto> ObtenerTodos()
     {
-        using var c = new SqliteConnection(Database.ConnectionString);
+        using var c = new SqliteConnection(_connectionString);
         var filas = c.Query<PresupuestoRow>("SELECT Id, ClienteNombre, Fecha FROM Presupuestos ORDER BY Fecha DESC, Id DESC").ToList();
         var todosLosItems = c.Query<PresupuestoItem>(
             "SELECT Id, PresupuestoId, ItemId, Descripcion, Unidad, Cantidad, PrecioUnitario, Total FROM PresupuestoItems").ToList();
@@ -33,7 +40,7 @@ public class PresupuestoRepository : IPresupuestoRepository
 
     public Presupuesto? ObtenerPorId(int id)
     {
-        using var c = new SqliteConnection(Database.ConnectionString);
+        using var c = new SqliteConnection(_connectionString);
         var fila = c.QueryFirstOrDefault<PresupuestoRow>(
             "SELECT Id, ClienteNombre, Fecha FROM Presupuestos WHERE Id = @id", new { id });
 
@@ -57,7 +64,7 @@ public class PresupuestoRepository : IPresupuestoRepository
 
     public int Insertar(Presupuesto presupuesto)
     {
-        using var c = new SqliteConnection(Database.ConnectionString);
+        using var c = new SqliteConnection(_connectionString);
         c.Open();
         using var tx = c.BeginTransaction();
 
@@ -74,7 +81,7 @@ public class PresupuestoRepository : IPresupuestoRepository
 
     public void Actualizar(Presupuesto presupuesto)
     {
-        using var c = new SqliteConnection(Database.ConnectionString);
+        using var c = new SqliteConnection(_connectionString);
         c.Open();
         using var tx = c.BeginTransaction();
 
@@ -90,7 +97,7 @@ public class PresupuestoRepository : IPresupuestoRepository
 
     public void Eliminar(int id)
     {
-        using var c = new SqliteConnection(Database.ConnectionString);
+        using var c = new SqliteConnection(_connectionString);
         c.Open();
         using var tx = c.BeginTransaction();
 
@@ -102,7 +109,7 @@ public class PresupuestoRepository : IPresupuestoRepository
 
     public void ReemplazarItems(int presupuestoId, IEnumerable<PresupuestoItem> items)
     {
-        using var c = new SqliteConnection(Database.ConnectionString);
+        using var c = new SqliteConnection(_connectionString);
         c.Open();
         using var tx = c.BeginTransaction();
 

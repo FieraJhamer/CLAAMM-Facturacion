@@ -9,16 +9,23 @@ namespace ClaammApp.Infrastructure.Repositories;
 
 public class ItemRepository : IItemRepository
 {
+    private readonly string _connectionString;
+
+    public ItemRepository(string? connectionString = null)
+    {
+        _connectionString = connectionString ?? Database.ConnectionString;
+    }
+
     public IEnumerable<Item> GetAll()
     {
-        using var c = new SqliteConnection(Database.ConnectionString);
+        using var c = new SqliteConnection(_connectionString);
         return c.Query<Item>(
             "SELECT Id, Codigo, Descripcion, Unidad, PrecioUnitario, Rubro FROM Items ORDER BY Descripcion COLLATE NOCASE");
     }
 
     public IEnumerable<Item> Buscar(string texto)
     {
-        using var c = new SqliteConnection(Database.ConnectionString);
+        using var c = new SqliteConnection(_connectionString);
         var items = c.Query<Item>(
             "SELECT Id, Codigo, Descripcion, Unidad, PrecioUnitario, Rubro FROM Items").ToList();
 
@@ -33,7 +40,7 @@ public class ItemRepository : IItemRepository
 
     public Item? ObtenerPorId(int id)
     {
-        using var c = new SqliteConnection(Database.ConnectionString);
+        using var c = new SqliteConnection(_connectionString);
         return c.QueryFirstOrDefault<Item>(
             "SELECT Id, Codigo, Descripcion, Unidad, PrecioUnitario, Rubro FROM Items WHERE Id = @id",
             new { id });
@@ -41,7 +48,7 @@ public class ItemRepository : IItemRepository
 
     public int Insertar(Item item)
     {
-        using var c = new SqliteConnection(Database.ConnectionString);
+        using var c = new SqliteConnection(_connectionString);
         c.Execute(
             """
             INSERT INTO Items (Codigo, Descripcion, Unidad, PrecioUnitario, Rubro)
@@ -53,7 +60,7 @@ public class ItemRepository : IItemRepository
 
     public void Actualizar(Item item)
     {
-        using var c = new SqliteConnection(Database.ConnectionString);
+        using var c = new SqliteConnection(_connectionString);
         c.Execute(
             """
             UPDATE Items
@@ -65,13 +72,13 @@ public class ItemRepository : IItemRepository
 
     public void Eliminar(int id)
     {
-        using var c = new SqliteConnection(Database.ConnectionString);
+        using var c = new SqliteConnection(_connectionString);
         c.Execute("DELETE FROM Items WHERE Id = @id", new { id });
     }
 
     public string ObtenerProximoCodigo()
     {
-        using var c = new SqliteConnection(Database.ConnectionString);
+        using var c = new SqliteConnection(_connectionString);
         var n = c.ExecuteScalar<int?>(
             "SELECT CAST(Valor AS INTEGER) FROM Configuracion WHERE Clave = 'ProximoCodigoItem'") ?? 1;
 
@@ -87,7 +94,7 @@ public class ItemRepository : IItemRepository
 
     public void IncrementarPrecios(decimal porcentaje)
     {
-        using var c = new SqliteConnection(Database.ConnectionString);
+        using var c = new SqliteConnection(_connectionString);
         c.Execute(
             "UPDATE Items SET PrecioUnitario = ROUND(PrecioUnitario * (1 + @p / 100.0), 2)",
             new { p = (double)porcentaje });

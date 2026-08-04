@@ -7,13 +7,24 @@ public static class Database
 {
     public static string ConnectionString => $"Data Source={AppPaths.RutaBaseDatos}";
 
-    public static void Inicializar()
-    {
-        AppPaths.AsegurarDirectorio();
-        MigrarBaseDeDatos();
-        MigrarCodigosItems();
+    public static void Inicializar() => Inicializar(AppPaths.RutaBaseDatos);
 
-        using var conexion = new SqliteConnection(ConnectionString);
+    public static void Inicializar(string rutaBaseDatos, bool migrarBaseAntigua = true)
+    {
+        var directorio = Path.GetDirectoryName(rutaBaseDatos);
+        if (!string.IsNullOrEmpty(directorio))
+            Directory.CreateDirectory(directorio);
+
+        if (migrarBaseAntigua)
+            MigrarBaseDeDatos(rutaBaseDatos);
+
+        MigrarCodigosItems(rutaBaseDatos);
+        CrearEsquema(rutaBaseDatos);
+    }
+
+    private static void CrearEsquema(string rutaBaseDatos)
+    {
+        using var conexion = new SqliteConnection($"Data Source={rutaBaseDatos}");
         conexion.Execute(
             """
             CREATE TABLE IF NOT EXISTS Items (
@@ -64,9 +75,8 @@ public static class Database
             """);
     }
 
-    private static void MigrarBaseDeDatos()
+    private static void MigrarBaseDeDatos(string rutaNueva)
     {
-        var rutaNueva = AppPaths.RutaBaseDatos;
         if (File.Exists(rutaNueva))
             return;
 
@@ -79,9 +89,9 @@ public static class Database
             File.Copy(rutaVieja, rutaNueva);
     }
 
-    private static void MigrarCodigosItems()
+    private static void MigrarCodigosItems(string rutaBaseDatos)
     {
-        using var conexion = new SqliteConnection(ConnectionString);
+        using var conexion = new SqliteConnection($"Data Source={rutaBaseDatos}");
         conexion.Execute(
             """
             CREATE TABLE IF NOT EXISTS Items (
