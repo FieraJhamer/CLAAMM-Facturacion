@@ -1,4 +1,4 @@
-# Sistema de Presupuestos CLAMM
+# Sistema de Presupuestos CLAAMM
 
 ## Objetivo
 

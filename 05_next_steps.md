@@ -4,16 +4,16 @@
 
 Generar solución .NET:
 
-dotnet new sln -n ClammApp
+dotnet new sln -n ClaammApp
 
 ## Paso 2
 
 Crear proyectos:
 
-dotnet new wpf -n ClammApp.UI
-dotnet new classlib -n ClammApp.Domain
-dotnet new classlib -n ClammApp.Application
-dotnet new classlib -n ClammApp.Infrastructure
+dotnet new wpf -n ClaammApp.UI
+dotnet new classlib -n ClaammApp.Domain
+dotnet new classlib -n ClaammApp.Application
+dotnet new classlib -n ClaammApp.Infrastructure
 
 ## Paso 3
 

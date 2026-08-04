@@ -32,7 +32,7 @@
 
 ### Contenido
 
-- Logo CLAMM
+- Logo CLAAMM
 - Datos empresa
 - Nombre cliente
 - Tabla de items:

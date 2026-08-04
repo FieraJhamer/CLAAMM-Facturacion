@@ -11,7 +11,7 @@
 
 ## Estructura del proyecto
 
-/ClammApp
+/ClaammApp
  ├── UI (WPF)
  ├── Application
  ├── Domain
