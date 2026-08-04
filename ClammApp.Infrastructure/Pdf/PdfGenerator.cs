@@ -45,20 +45,19 @@ public class PdfGenerator : IPdfGenerator
     {
         container.Column(col =>
         {
-            col.Item().Row(row =>
-            {
-                if (File.Exists(configuracion.LogoRuta))
-                    row.ConstantItem(84).Height(52).Image(File.ReadAllBytes(configuracion.LogoRuta)).FitArea();
-                else
-                    row.ConstantItem(84).Height(52).Element(LogoPlaceholder);
+            var logoBytes = File.Exists(configuracion.LogoRuta) ? File.ReadAllBytes(configuracion.LogoRuta) : null;
 
-                row.RelativeItem().PaddingLeft(14).Column(datos =>
-                {
-                    datos.Item().Text("CLAMM").FontSize(22).Bold().FontColor(Grafito);
-                    datos.Item().Text(configuracion.RazonSocial).FontSize(11).Bold();
-                    datos.Item().PaddingTop(2).Text(LineaDatos(configuracion)).FontSize(9).FontColor(Colors.Grey.Darken2);
-                });
+            col.Item().PaddingBottom(4).Row(row =>
+            {
+                if (logoBytes != null)
+                    row.ConstantItem(150).Image(logoBytes).FitWidth();
+                else
+                    row.ConstantItem(150).Height(90).Element(LogoPlaceholder);
             });
+
+            col.Item().Text(configuracion.RazonSocial).FontSize(14).Bold();
+
+            col.Item().PaddingTop(2).Text(LineaDatos(configuracion)).FontSize(9).FontColor(Colors.Grey.Darken2);
 
             col.Item().PaddingTop(18).LineHorizontal(2).LineColor(Dorado);
 
@@ -126,16 +125,20 @@ public class PdfGenerator : IPdfGenerator
                 t.Span(FormatoMoneda(presupuesto.Total)).FontSize(14).Bold().FontColor(Dorado);
             });
 
-            col.Item().PaddingTop(28).Text("Observaciones:").FontSize(9).Bold().FontColor(Colors.Grey.Darken2);
             col.Item().PaddingTop(6).LineHorizontal(1).LineColor(Colors.Grey.Lighten2);
-            col.Item().PaddingTop(28).Text("Firma y aclaración del cliente").FontSize(9).FontColor(Colors.Grey.Darken2);
+            col.Item().PaddingTop(2).Text("Observaciones:").FontSize(8).Bold().FontColor(Colors.Grey.Darken2);
+            col.Item().PaddingTop(2).Text("• Las formas de pagos son pactados al comenzar la obra.").FontSize(8).FontColor(Colors.Grey.Darken2);
+            col.Item().PaddingTop(2).Text("• No incluye traslados de resagos").FontSize(8).FontColor(Colors.Grey.Darken2);
+            col.Item().PaddingTop(2).Text("• Las modificaciones de trabajos serán relevadas con precios alternativos").FontSize(8).FontColor(Colors.Grey.Darken2);
+            col.Item().PaddingTop(2).Text("• Con factura A o B se increneta 21% mas a la factura").FontSize(8).FontColor(Colors.Grey.Darken2);
+            col.Item().PaddingTop(2).Text("• Ver los itens correspondientes para la aprobacion").FontSize(8).FontColor(Colors.Grey.Darken2);
         });
     }
 
     private static void LogoPlaceholder(IContainer container)
     {
         container.Background(Grafito)
-            .AlignMiddle().AlignCenter().Text("CLAMM").FontColor(Colors.White).Bold().FontSize(13);
+            .AlignMiddle().AlignCenter().Text("CLAMM").FontColor(Colors.White).Bold().FontSize(16);
     }
 
     private static string LineaDatos(ConfiguracionEmpresa c)
