@@ -65,23 +65,30 @@
                                 VerticalAlignment="Bottom" Height="34" Padding="16,6" Click="BtnAgregar_Click"/>
                     </Grid>
 
-                    <ListBox x:Name="ListaResultados" Margin="0,10,0,0" MaxHeight="120"
-                             Visibility="Collapsed"
-                             MouseDoubleClick="ListaResultados_MouseDoubleClick" BorderBrush="{StaticResource BrochaBorde}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <DockPanel>
-                                    <TextBlock Text="{Binding PrecioTexto}" FontWeight="Bold" Foreground="{StaticResource BrochaPrimaria}"
-                                               DockPanel.Dock="Right" Margin="10,0,0,0"/>
-                                    <TextBlock>
-                                        <Run Text="{Binding Codigo, Mode=OneWay}" FontWeight="SemiBold"/>
-                                        <Run Text=" - "/>
-                                        <Run Text="{Binding Descripcion, Mode=OneWay}"/>
-                                    </TextBlock>
-                                </DockPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                    <Grid Margin="0,10,0,0">
+                        <ListBox x:Name="ListaResultados" MaxHeight="120"
+                                 Visibility="Collapsed"
+                                 MouseDoubleClick="ListaResultados_MouseDoubleClick" BorderBrush="{StaticResource BrochaBorde}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <DockPanel>
+                                        <TextBlock Text="{Binding PrecioTexto}" FontWeight="Bold" Foreground="{StaticResource BrochaPrimaria}"
+                                                   DockPanel.Dock="Right" Margin="10,0,0,0"/>
+                                        <TextBlock>
+                                            <Run Text="{Binding Codigo, Mode=OneWay}" FontWeight="SemiBold"/>
+                                            <Run Text=" - "/>
+                                            <Run Text="{Binding Descripcion, Mode=OneWay}"/>
+                                        </TextBlock>
+                                    </DockPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+
+                        <Border x:Name="MensajeSinResultados" Visibility="Collapsed" Background="White"
+                                BorderBrush="{StaticResource BrochaBorde}" BorderThickness="1" CornerRadius="6" Padding="12,8">
+                            <TextBlock Text="No se encontró ningún ítem que coincida" FontSize="13" Foreground="#718096"/>
+                        </Border>
+                    </Grid>
                 </StackPanel>
             </Border>
 

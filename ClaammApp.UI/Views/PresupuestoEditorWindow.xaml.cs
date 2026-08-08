@@ -63,12 +63,16 @@ public partial class PresupuestoEditorWindow : Window
         {
             ListaResultados.ItemsSource = null;
             ListaResultados.Visibility = Visibility.Collapsed;
+            MensajeSinResultados.Visibility = Visibility.Collapsed;
             return;
         }
 
-        var items = Composicion.Items.Buscar(texto);
-        ListaResultados.ItemsSource = items.Select(i => new ItemListaViewModel(i)).ToList();
-        ListaResultados.Visibility = Visibility.Visible;
+        var items = Composicion.Items.Buscar(texto).ToList();
+        var hayResultados = items.Count > 0;
+
+        ListaResultados.ItemsSource = hayResultados ? items.Select(i => new ItemListaViewModel(i)).ToList() : null;
+        ListaResultados.Visibility = hayResultados ? Visibility.Visible : Visibility.Collapsed;
+        MensajeSinResultados.Visibility = hayResultados ? Visibility.Collapsed : Visibility.Visible;
     }
 
     private void BtnAgregar_Click(object sender, RoutedEventArgs e) => AgregarSeleccionado();
@@ -97,6 +101,7 @@ public partial class PresupuestoEditorWindow : Window
         TxtBuscarItem.Clear();
         ListaResultados.ItemsSource = null;
         ListaResultados.Visibility = Visibility.Collapsed;
+        MensajeSinResultados.Visibility = Visibility.Collapsed;
         TxtBuscarItem.Focus();
     }
 
