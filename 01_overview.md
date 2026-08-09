@@ -21,7 +21,7 @@ El objetivo es reemplazar Excel por una aplicación más eficiente y fácil de u
 
 ## Características principales
 
-- CRUD de ítems de precios
+- CRUD de la lista de precios
 - Búsqueda por nombre (no por código)
 - Generación de presupuestos
 - Exportación a PDF con formato profesional

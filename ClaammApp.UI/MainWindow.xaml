@@ -26,7 +26,7 @@
                 <StackPanel>
                     <Button x:Name="BtnPresupuestos" Content="&#x1F4DD;  Presupuestos"
                             Style="{StaticResource BotonNavegacion}" Click="BtnPresupuestos_Click"/>
-                    <Button x:Name="BtnItems" Content="&#x1F4B0;  Ítems de precios"
+                    <Button x:Name="BtnItems" Content="&#x1F4B0;  Lista de precios"
                             Style="{StaticResource BotonNavegacion}" Click="BtnItems_Click"/>
                     <Button x:Name="BtnRubros" Content="&#x1F4C1;  Rubros"
                             Style="{StaticResource BotonNavegacion}" Click="BtnRubros_Click"/>

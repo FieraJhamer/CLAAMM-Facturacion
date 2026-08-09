@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <DockPanel Margin="28">
         <DockPanel DockPanel.Dock="Top" Margin="0,0,0,16">
-            <TextBlock Text="Ítems de precios" Style="{StaticResource TituloPantalla}"/>
+            <TextBlock Text="Lista de precios" Style="{StaticResource TituloPantalla}"/>
         </DockPanel>
 
         <Border DockPanel.Dock="Top" Background="White" BorderBrush="{StaticResource BrochaBorde}"
