@@ -18,12 +18,15 @@ public partial class ItemEditorWindow : Window
         TituloVentana.Text = item.Id == 0 ? "Nuevo ítem" : "Editar ítem";
 
         CboUnidad.ItemsSource = Composicion.Unidades.ObtenerTodos().Select(u => u.Nombre).ToList();
-        CboRubro.ItemsSource = Composicion.Rubros.ObtenerTodos().Select(r => r.Nombre).ToList();
+        var rubros = Composicion.Rubros.ObtenerTodos().Select(r => r.Nombre).ToList();
+        CboRubro.ItemsSource = rubros;
 
         TxtDescripcion.Text = item.Descripcion;
         CboUnidad.Text = item.Unidad;
         TxtPrecio.Text = item.PrecioUnitario == 0 ? string.Empty : item.PrecioUnitario.ToString("#,##0.00");
         CboRubro.Text = item.Rubro;
+        if (string.IsNullOrWhiteSpace(item.Rubro) && rubros.Count > 0)
+            CboRubro.SelectedIndex = 0;
     }
 
     private void BtnCancelar_Click(object sender, RoutedEventArgs e) => DialogResult = false;
