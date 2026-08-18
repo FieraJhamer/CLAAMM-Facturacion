@@ -98,7 +98,7 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Descripción" Binding="{Binding Descripcion}" Width="*" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Unidad" Binding="{Binding Unidad}" Width="70" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Cantidad" Binding="{Binding CantidadTexto}" Width="100"/>
+                        <DataGridTextColumn Header="Cantidad" Binding="{Binding CantidadTexto, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
                         <DataGridTextColumn Header="Precio Unitario" Binding="{Binding PrecioUnitarioTexto}" Width="130" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Total" Binding="{Binding TotalTexto}" Width="140" IsReadOnly="True"/>
                         <DataGridTemplateColumn Header="" Width="86">
