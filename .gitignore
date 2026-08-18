@@ -4,6 +4,7 @@
 [Dd]ebug/
 [Rr]elease/
 publicar/
+publish/
 *.user
 *.suo
 *.userprefs

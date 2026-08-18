@@ -15,7 +15,7 @@ public class ConfiguracionServiceTests
 
         Assert.Equal(string.Empty, empresa.RazonSocial);
         Assert.Equal(string.Empty, empresa.Cuit);
-        Assert.Equal(string.Empty, empresa.LogoRuta);
+        Assert.Equal(string.Empty, empresa.Email);
     }
 
     [Fact]
@@ -28,8 +28,7 @@ public class ConfiguracionServiceTests
             Cuit = "30-12345678-9",
             Direccion = "Calle 1",
             Telefono = "123",
-            Email = "a@b.com",
-            LogoRuta = @"C:\logo.png"
+            Email = "a@b.com"
         };
 
         servicio.GuardarEmpresa(empresa);
@@ -37,6 +36,6 @@ public class ConfiguracionServiceTests
 
         Assert.Equal("CLAAMM SA", obtenida.RazonSocial);
         Assert.Equal("30-12345678-9", obtenida.Cuit);
-        Assert.Equal(@"C:\logo.png", obtenida.LogoRuta);
+        Assert.Equal("a@b.com", obtenida.Email);
     }
 }

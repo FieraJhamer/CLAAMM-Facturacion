@@ -45,7 +45,8 @@ public class PdfGenerator : IPdfGenerator
     {
         container.Column(col =>
         {
-            var logoBytes = File.Exists(configuracion.LogoRuta) ? File.ReadAllBytes(configuracion.LogoRuta) : null;
+            var logoRuta = Path.Combine(AppContext.BaseDirectory, "logo.png");
+            var logoBytes = File.Exists(logoRuta) ? File.ReadAllBytes(logoRuta) : null;
 
             col.Item().PaddingBottom(4).Row(row =>
             {

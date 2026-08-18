@@ -11,7 +11,6 @@ public class ConfiguracionService
     private const string ClaveDireccion = Prefijo + "Direccion";
     private const string ClaveTelefono = Prefijo + "Telefono";
     private const string ClaveEmail = Prefijo + "Email";
-    private const string ClaveLogoRuta = Prefijo + "LogoRuta";
 
     private readonly IConfiguracionRepository _repositorio;
 
@@ -29,7 +28,6 @@ public class ConfiguracionService
             Direccion = _repositorio.Obtener(ClaveDireccion),
             Telefono = _repositorio.Obtener(ClaveTelefono),
             Email = _repositorio.Obtener(ClaveEmail),
-            LogoRuta = _repositorio.Obtener(ClaveLogoRuta)
         };
     }
 
@@ -40,6 +38,5 @@ public class ConfiguracionService
         _repositorio.Guardar(ClaveDireccion, empresa.Direccion ?? string.Empty);
         _repositorio.Guardar(ClaveTelefono, empresa.Telefono ?? string.Empty);
         _repositorio.Guardar(ClaveEmail, empresa.Email ?? string.Empty);
-        _repositorio.Guardar(ClaveLogoRuta, empresa.LogoRuta ?? string.Empty);
     }
 }

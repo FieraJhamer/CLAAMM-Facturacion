@@ -31,20 +31,8 @@
                 <TextBox x:Name="TxtTelefono" Height="34" Margin="0,0,0,12"/>
 
                 <TextBlock Text="Email" Style="{StaticResource Etiqueta}"/>
-                <TextBox x:Name="TxtEmail" Height="34" Margin="0,0,0,18"/>
-
-                <TextBlock Text="Logo (PNG o JPG)" Style="{StaticResource Etiqueta}"/>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="10"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBox x:Name="TxtLogo" Height="34"/>
-                    <Button Grid.Column="2" Content="Examinar..." Style="{StaticResource BotonSecundario}"
-                            Height="34" Padding="16,6" Click="BtnExaminarLogo_Click"/>
-                </Grid>
-                <TextBlock Text="Si no se elige logo, se muestra un encabezado con el texto CLAAMM."
+                <TextBox x:Name="TxtEmail" Height="34"/>
+                <TextBlock Text="El logo se toma automáticamente del archivo logo.png ubicado junto a la aplicación."
                            FontSize="11" Foreground="#718096" Margin="0,6,0,0" TextWrapping="Wrap"/>
             </StackPanel>
         </ScrollViewer>

@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ClaammApp.Application\ClaammApp.Application.csproj" />
     <ProjectReference Include="..\ClaammApp.Infrastructure\ClaammApp.Infrastructure.csproj" />
+    <None Include="..\logo.png" Link="logo.png" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <PropertyGroup>

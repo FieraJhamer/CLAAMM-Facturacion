@@ -11,6 +11,4 @@ public class ConfiguracionEmpresa
     public string Telefono { get; set; } = string.Empty;
 
     public string Email { get; set; } = string.Empty;
-
-    public string LogoRuta { get; set; } = string.Empty;
 }
