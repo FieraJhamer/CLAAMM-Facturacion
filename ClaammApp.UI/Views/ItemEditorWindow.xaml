@@ -42,7 +42,7 @@
             <Button x:Name="BtnCancelar" Content="Cancelar" Style="{StaticResource BotonSecundario}"
                     Margin="0,0,10,0" Click="BtnCancelar_Click"/>
             <Button x:Name="BtnGuardar" Content="Guardar" Style="{StaticResource BotonPrincipal}"
-                    Click="BtnGuardar_Click"/>
+                    IsDefault="True" Click="BtnGuardar_Click"/>
         </StackPanel>
     </Grid>
 </Window>
