@@ -18,14 +18,17 @@
                 <TextBlock Text="Datos de la empresa (aparecen en el PDF)" FontSize="14" FontWeight="Bold"
                            Foreground="{StaticResource BrochaGrafito}" Margin="0,0,0,12"/>
 
-                <TextBlock Text="Razón social" Style="{StaticResource Etiqueta}"/>
-                <TextBox x:Name="TxtRazonSocial" Height="34" Margin="0,0,0,12"/>
+                <TextBlock Text="Responsable" Style="{StaticResource Etiqueta}"/>
+                <TextBox x:Name="TxtResponsable" Height="34" Margin="0,0,0,12"/>
 
                 <TextBlock Text="CUIT" Style="{StaticResource Etiqueta}"/>
                 <TextBox x:Name="TxtCuit" Height="34" Margin="0,0,0,12"/>
 
                 <TextBlock Text="Dirección" Style="{StaticResource Etiqueta}"/>
                 <TextBox x:Name="TxtDireccion" Height="34" Margin="0,0,0,12"/>
+
+                <TextBlock Text="Ubicación (ciudad y provincia)" Style="{StaticResource Etiqueta}"/>
+                <TextBox x:Name="TxtUbicacion" Height="34" Margin="0,0,0,12"/>
 
                 <TextBlock Text="Teléfono" Style="{StaticResource Etiqueta}"/>
                 <TextBox x:Name="TxtTelefono" Height="34" Margin="0,0,0,12"/>

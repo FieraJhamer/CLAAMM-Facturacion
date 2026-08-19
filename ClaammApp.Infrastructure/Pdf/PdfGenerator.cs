@@ -56,9 +56,13 @@ public class PdfGenerator : IPdfGenerator
                     row.ConstantItem(150).Height(90).Element(LogoPlaceholder);
             });
 
-            col.Item().Text(configuracion.RazonSocial).FontSize(14).Bold();
+            col.Item().Text("Servicios y Construcciones").FontSize(14).Bold();
 
-            col.Item().PaddingTop(2).Text(LineaDatos(configuracion)).FontSize(9).FontColor(Colors.Grey.Darken2);
+            col.Item().PaddingTop(2).Row(row =>
+            {
+                row.RelativeItem().Column(izq => IzquierdaDatos(izq, configuracion));
+                row.RelativeItem().Column(der => DerechaDatos(der, configuracion));
+            });
 
             col.Item().PaddingTop(18).LineHorizontal(2).LineColor(Dorado);
 
@@ -132,7 +136,7 @@ public class PdfGenerator : IPdfGenerator
             col.Item().PaddingTop(2).Text("• No incluye traslados de resagos").FontSize(8).FontColor(Colors.Grey.Darken2);
             col.Item().PaddingTop(2).Text("• Las modificaciones de trabajos serán relevadas con precios alternativos").FontSize(8).FontColor(Colors.Grey.Darken2);
             col.Item().PaddingTop(2).Text("• Con factura A o B se increneta 21% mas a la factura").FontSize(8).FontColor(Colors.Grey.Darken2);
-            col.Item().PaddingTop(2).Text("• Ver los itens correspondientes para la aprobacion").FontSize(8).FontColor(Colors.Grey.Darken2);
+            col.Item().PaddingTop(2).Text("• Ver los items correspondientes para la aprobacion").FontSize(8).FontColor(Colors.Grey.Darken2);
         });
     }
 
@@ -142,14 +146,26 @@ public class PdfGenerator : IPdfGenerator
             .AlignMiddle().AlignCenter().Text("CLAAMM").FontColor(Colors.White).Bold().FontSize(16);
     }
 
-    private static string LineaDatos(ConfiguracionEmpresa c)
+    private static void IzquierdaDatos(ColumnDescriptor col, ConfiguracionEmpresa c)
     {
-        var partes = new List<string>();
-        if (!string.IsNullOrWhiteSpace(c.Cuit)) partes.Add("CUIT: " + c.Cuit);
-        if (!string.IsNullOrWhiteSpace(c.Direccion)) partes.Add(c.Direccion);
-        if (!string.IsNullOrWhiteSpace(c.Telefono)) partes.Add("Tel: " + c.Telefono);
-        if (!string.IsNullOrWhiteSpace(c.Email)) partes.Add(c.Email);
-        return string.Join("  |  ", partes);
+        var estilo = new TextStyle().FontSize(9).FontColor(Colors.Grey.Darken2);
+        if (!string.IsNullOrWhiteSpace(c.Responsable))
+            col.Item().Text("Responsable " + c.Responsable).Style(estilo);
+        if (!string.IsNullOrWhiteSpace(c.Cuit))
+            col.Item().Text("CUIT: " + c.Cuit).Style(estilo);
+        if (!string.IsNullOrWhiteSpace(c.Email))
+            col.Item().Text("Correo: " + c.Email).Style(estilo);
+    }
+
+    private static void DerechaDatos(ColumnDescriptor col, ConfiguracionEmpresa c)
+    {
+        var estilo = new TextStyle().FontSize(9).FontColor(Colors.Grey.Darken2);
+        if (!string.IsNullOrWhiteSpace(c.Direccion))
+            col.Item().Text("Dirección: " + c.Direccion).Style(estilo);
+        if (!string.IsNullOrWhiteSpace(c.Ubicacion))
+            col.Item().Text("Ubicación: " + c.Ubicacion).Style(estilo);
+        if (!string.IsNullOrWhiteSpace(c.Telefono))
+            col.Item().Text("Teléfono: " + c.Telefono).Style(estilo);
     }
 
     private static string FormatoMoneda(decimal valor)

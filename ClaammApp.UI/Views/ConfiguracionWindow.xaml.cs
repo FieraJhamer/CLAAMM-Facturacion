@@ -11,9 +11,10 @@ public partial class ConfiguracionWindow : Window
         Ventanas.AjustarAlAreaTrabajo(this);
 
         var empresa = Composicion.Configuracion.ObtenerEmpresa();
-        TxtRazonSocial.Text = empresa.RazonSocial;
+        TxtResponsable.Text = empresa.Responsable;
         TxtCuit.Text = empresa.Cuit;
         TxtDireccion.Text = empresa.Direccion;
+        TxtUbicacion.Text = empresa.Ubicacion;
         TxtTelefono.Text = empresa.Telefono;
         TxtEmail.Text = empresa.Email;
     }
@@ -24,9 +25,10 @@ public partial class ConfiguracionWindow : Window
     {
         var empresa = new ConfiguracionEmpresa
         {
-            RazonSocial = TxtRazonSocial.Text.Trim(),
+            Responsable = TxtResponsable.Text.Trim(),
             Cuit = TxtCuit.Text.Trim(),
             Direccion = TxtDireccion.Text.Trim(),
+            Ubicacion = TxtUbicacion.Text.Trim(),
             Telefono = TxtTelefono.Text.Trim(),
             Email = TxtEmail.Text.Trim()
         };

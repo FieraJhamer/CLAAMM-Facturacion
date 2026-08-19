@@ -127,7 +127,7 @@ public class PresupuestoServiceTests
     public void ExportarPdf_EscribeElArchivo()
     {
         var presupuesto = ConUnItem();
-        var config = new ConfiguracionEmpresa { RazonSocial = "CLAAMM" };
+        var config = new ConfiguracionEmpresa { Responsable = "CLAAMM" };
         var ruta = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N") + ".pdf");
         try
         {

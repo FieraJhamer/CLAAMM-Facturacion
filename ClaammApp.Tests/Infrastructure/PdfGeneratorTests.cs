@@ -24,9 +24,10 @@ public class PdfGeneratorTests
     {
         return new ConfiguracionEmpresa
         {
-            RazonSocial = "CLAAMM Construcciones",
+            Responsable = "Juan Perez",
             Cuit = "30-12345678-9",
             Direccion = "Calle Falsa 123",
+            Ubicacion = "Ciudad, Provincia",
             Telefono = "011-5555-1234",
             Email = "contacto@claamm.com"
         };

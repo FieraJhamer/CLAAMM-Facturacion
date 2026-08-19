@@ -13,8 +13,9 @@ public class ConfiguracionServiceTests
 
         var empresa = servicio.ObtenerEmpresa();
 
-        Assert.Equal(string.Empty, empresa.RazonSocial);
+        Assert.Equal(string.Empty, empresa.Responsable);
         Assert.Equal(string.Empty, empresa.Cuit);
+        Assert.Equal(string.Empty, empresa.Ubicacion);
         Assert.Equal(string.Empty, empresa.Email);
     }
 
@@ -24,9 +25,10 @@ public class ConfiguracionServiceTests
         var servicio = new ConfiguracionService(new FakeConfiguracionRepository());
         var empresa = new ConfiguracionEmpresa
         {
-            RazonSocial = "CLAAMM SA",
+            Responsable = "Juan Perez",
             Cuit = "30-12345678-9",
             Direccion = "Calle 1",
+            Ubicacion = "CABA",
             Telefono = "123",
             Email = "a@b.com"
         };
@@ -34,8 +36,9 @@ public class ConfiguracionServiceTests
         servicio.GuardarEmpresa(empresa);
         var obtenida = servicio.ObtenerEmpresa();
 
-        Assert.Equal("CLAAMM SA", obtenida.RazonSocial);
+        Assert.Equal("Juan Perez", obtenida.Responsable);
         Assert.Equal("30-12345678-9", obtenida.Cuit);
+        Assert.Equal("CABA", obtenida.Ubicacion);
         Assert.Equal("a@b.com", obtenida.Email);
     }
 }
