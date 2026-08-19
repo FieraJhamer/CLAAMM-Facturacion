@@ -77,16 +77,7 @@ public static class Database
 
     private static void MigrarBaseDeDatos(string rutaNueva)
     {
-        if (File.Exists(rutaNueva))
-            return;
-
-        var rutaVieja = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-            "ClammApp",
-            "clamm.db");
-
-        if (File.Exists(rutaVieja))
-            File.Copy(rutaVieja, rutaNueva);
+        _ = rutaNueva;
     }
 
     private static void MigrarCodigosItems(string rutaBaseDatos)
