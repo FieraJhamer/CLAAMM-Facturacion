@@ -61,7 +61,7 @@ public class PdfGenerator : IPdfGenerator
             col.Item().PaddingTop(2).Row(row =>
             {
                 row.RelativeItem().Column(izq => IzquierdaDatos(izq, configuracion));
-                row.RelativeItem().Column(der => DerechaDatos(der, configuracion));
+                row.RelativeItem().AlignRight().Column(der => DerechaDatos(der, configuracion));
             });
 
             col.Item().PaddingTop(18).LineHorizontal(2).LineColor(Dorado);
@@ -76,7 +76,18 @@ public class PdfGenerator : IPdfGenerator
                 row.ConstantItem(180).AlignRight().Text("Fecha: " + presupuesto.Fecha.ToString("dd/MM/yyyy")).FontSize(10);
             });
 
-            col.Item().PaddingTop(6).Text($"Cliente:  {presupuesto.ClienteNombre}").FontSize(12).Bold();
+            col.Item().PaddingTop(6).Row(row =>
+            {
+                row.RelativeItem().Text($"Cliente:  {presupuesto.ClienteNombre}").FontSize(12).Bold();
+
+                row.RelativeItem().AlignRight().Column(derecha =>
+                {
+                    var estilo = new TextStyle().FontSize(9).FontColor(Colors.Grey.Darken2);
+                    derecha.Item().Text("Validez de oferta: 10 días").Style(estilo);
+                    derecha.Item().Text("Pago: Efectivo o transferencia").Style(estilo);
+                    derecha.Item().Text("Moneda: Pesos argentinos").Style(estilo);
+                });
+            });
 
             col.Item().PaddingTop(12).Text("DETALLE").FontSize(10).Bold().FontColor(Colors.Grey.Darken2);
         });
