@@ -20,12 +20,13 @@ public class PresupuestoRepository : IPresupuestoRepository
         public int Id { get; set; }
         public string ClienteNombre { get; set; } = string.Empty;
         public string Fecha { get; set; } = string.Empty;
+        public decimal Descuento { get; set; }
     }
 
     public IEnumerable<Presupuesto> ObtenerTodos()
     {
         using var c = new SqliteConnection(_connectionString);
-        var filas = c.Query<PresupuestoRow>("SELECT Id, ClienteNombre, Fecha FROM Presupuestos ORDER BY Fecha DESC, Id DESC").ToList();
+        var filas = c.Query<PresupuestoRow>("SELECT Id, ClienteNombre, Fecha, Descuento FROM Presupuestos ORDER BY Fecha DESC, Id DESC").ToList();
         var todosLosItems = c.Query<PresupuestoItem>(
             "SELECT Id, PresupuestoId, ItemId, Descripcion, Unidad, Cantidad, PrecioUnitario, Total FROM PresupuestoItems").ToList();
 
@@ -34,6 +35,7 @@ public class PresupuestoRepository : IPresupuestoRepository
             Id = f.Id,
             ClienteNombre = f.ClienteNombre,
             Fecha = DateTime.Parse(f.Fecha),
+            DescuentoPorcentaje = f.Descuento,
             Items = todosLosItems.Where(i => i.PresupuestoId == f.Id).ToList()
         }).ToList();
     }
@@ -42,7 +44,7 @@ public class PresupuestoRepository : IPresupuestoRepository
     {
         using var c = new SqliteConnection(_connectionString);
         var fila = c.QueryFirstOrDefault<PresupuestoRow>(
-            "SELECT Id, ClienteNombre, Fecha FROM Presupuestos WHERE Id = @id", new { id });
+            "SELECT Id, ClienteNombre, Fecha, Descuento FROM Presupuestos WHERE Id = @id", new { id });
 
         if (fila is null)
             return null;
@@ -58,6 +60,7 @@ public class PresupuestoRepository : IPresupuestoRepository
             Id = fila.Id,
             ClienteNombre = fila.ClienteNombre,
             Fecha = DateTime.Parse(fila.Fecha),
+            DescuentoPorcentaje = fila.Descuento,
             Items = items
         };
     }
@@ -69,8 +72,8 @@ public class PresupuestoRepository : IPresupuestoRepository
         using var tx = c.BeginTransaction();
 
         var id = c.ExecuteScalar<int>(
-            "INSERT INTO Presupuestos (ClienteNombre, Fecha) VALUES (@ClienteNombre, @Fecha); SELECT last_insert_rowid();",
-            new { presupuesto.ClienteNombre, Fecha = presupuesto.Fecha.ToString("o") }, tx);
+            "INSERT INTO Presupuestos (ClienteNombre, Fecha, Descuento) VALUES (@ClienteNombre, @Fecha, @Descuento); SELECT last_insert_rowid();",
+            new { presupuesto.ClienteNombre, Fecha = presupuesto.Fecha.ToString("o"), Descuento = presupuesto.DescuentoPorcentaje }, tx);
 
         InsertarItems(c, id, presupuesto.Items, tx);
 
@@ -86,8 +89,8 @@ public class PresupuestoRepository : IPresupuestoRepository
         using var tx = c.BeginTransaction();
 
         c.Execute(
-            "UPDATE Presupuestos SET ClienteNombre = @ClienteNombre, Fecha = @Fecha WHERE Id = @Id",
-            new { presupuesto.ClienteNombre, Fecha = presupuesto.Fecha.ToString("o"), presupuesto.Id }, tx);
+            "UPDATE Presupuestos SET ClienteNombre = @ClienteNombre, Fecha = @Fecha, Descuento = @Descuento WHERE Id = @Id",
+            new { presupuesto.ClienteNombre, Fecha = presupuesto.Fecha.ToString("o"), Descuento = presupuesto.DescuentoPorcentaje, presupuesto.Id }, tx);
 
         c.Execute("DELETE FROM PresupuestoItems WHERE PresupuestoId = @id", new { id = presupuesto.Id }, tx);
         InsertarItems(c, presupuesto.Id, presupuesto.Items, tx);

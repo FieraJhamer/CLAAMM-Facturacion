@@ -106,6 +106,23 @@ public class PresupuestoRepositoryTests : RepositorioTestBase
     }
 
     [Fact]
+    public void Insertar_PersisteDescuento()
+    {
+        var presupuesto = ConItems("Cliente A", DateTime.Today, ("Item 1", 2, 100));
+        presupuesto.DescuentoPorcentaje = 10m;
+
+        var id = _repositorio.Insertar(presupuesto);
+
+        var obtenido = _repositorio.ObtenerPorId(id)!;
+        Assert.Equal(10m, obtenido.DescuentoPorcentaje);
+        Assert.Equal(200m, obtenido.Total);
+        Assert.Equal(20m, obtenido.TotalDescuento);
+        Assert.Equal(180m, obtenido.Subtotal);
+        Assert.Equal(37.8m, obtenido.TotalImpuesto);
+        Assert.Equal(217.8m, obtenido.TotalNeto);
+    }
+
+    [Fact]
     public void ReemplazarItems_ReemplazaLineas()
     {
         var presupuesto = ConItems("Cliente A", DateTime.Today, ("Item 1", 1, 10));

@@ -18,5 +18,5 @@ public class PresupuestoListaViewModel
 
     public string FechaTexto => Formatos.FechaCorta(Presupuesto.Fecha);
 
-    public string TotalTexto => Formatos.Moneda(Presupuesto.Total);
+    public string TotalTexto => Formatos.Moneda(Presupuesto.TotalNeto);
 }

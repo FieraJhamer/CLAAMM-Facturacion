@@ -51,9 +51,9 @@ public class PdfGenerator : IPdfGenerator
             col.Item().PaddingBottom(4).Row(row =>
             {
                 if (logoBytes != null)
-                    row.ConstantItem(150).Image(logoBytes).FitWidth();
+                    row.ConstantItem(170).Image(logoBytes).FitWidth();
                 else
-                    row.ConstantItem(150).Height(90).Element(LogoPlaceholder);
+                    row.ConstantItem(170).Height(90).Element(LogoPlaceholder);
             });
 
             col.Item().Text("Servicios y Construcciones").FontSize(14).Bold();
@@ -124,19 +124,27 @@ public class PdfGenerator : IPdfGenerator
                 }
             });
 
-            col.Item().PaddingTop(14).AlignRight().Text(t =>
+            col.Item().PaddingTop(11).AlignRight().Text("Total:  " + FormatoMoneda(presupuesto.Total)).FontSize(11).Bold();
+
+            if (presupuesto.DescuentoPorcentaje > 0)
             {
-                t.Span("TOTAL:  ").FontSize(14).Bold();
-                t.Span(FormatoMoneda(presupuesto.Total)).FontSize(14).Bold().FontColor(Dorado);
-            });
+                col.Item().PaddingTop(4).AlignRight().Text(
+                    $"Descuento {presupuesto.DescuentoPorcentaje:0.##}%:  " +
+                    FormatoMoneda(presupuesto.TotalDescuento)).FontSize(11).FontColor(Colors.Grey.Darken2);
+            }
+
+            col.Item().PaddingTop(4).AlignRight().Text(
+                "Impuesto 21%:  " + FormatoMoneda(presupuesto.TotalImpuesto)).FontSize(11).FontColor(Colors.Grey.Darken2);
+            col.Item().PaddingTop(4).AlignRight().Text(
+                "Importe neto total:  " + FormatoMoneda(presupuesto.TotalNeto)).FontSize(14).Bold().FontColor(Dorado);
 
             col.Item().PaddingTop(6).LineHorizontal(1).LineColor(Colors.Grey.Lighten2);
-            col.Item().PaddingTop(2).Text("Observaciones:").FontSize(8).Bold().FontColor(Colors.Grey.Darken2);
-            col.Item().PaddingTop(2).Text("• Las formas de pagos son pactados al comenzar la obra.").FontSize(8).FontColor(Colors.Grey.Darken2);
-            col.Item().PaddingTop(2).Text("• No incluye traslados de resagos").FontSize(8).FontColor(Colors.Grey.Darken2);
-            col.Item().PaddingTop(2).Text("• Las modificaciones de trabajos serán relevadas con precios alternativos").FontSize(8).FontColor(Colors.Grey.Darken2);
-            col.Item().PaddingTop(2).Text("• Con factura A o B se increneta 21% mas a la factura").FontSize(8).FontColor(Colors.Grey.Darken2);
-            col.Item().PaddingTop(2).Text("• Ver los items correspondientes para la aprobacion").FontSize(8).FontColor(Colors.Grey.Darken2);
+            col.Item().PaddingTop(6).Text("Observaciones:").FontSize(9).Bold().FontColor(Colors.Grey.Darken2);
+            col.Item().PaddingTop(2).Text("- Las formas de pagos son pactados al comenzar la obra.").FontSize(9).FontColor(Colors.Grey.Darken2);
+            col.Item().PaddingTop(2).Text("- No incluye traslados de resagos").FontSize(9).FontColor(Colors.Grey.Darken2);
+            col.Item().PaddingTop(2).Text("- Las modificaciones de trabajos serán relevadas con precios alternativos").FontSize(9).FontColor(Colors.Grey.Darken2);
+            col.Item().PaddingTop(2).Text("- Con factura A o B se increneta 21% mas a la factura").FontSize(9).FontColor(Colors.Grey.Darken2);
+            col.Item().PaddingTop(2).Text("- Ver los items correspondientes para la aprobacion").FontSize(9).FontColor(Colors.Grey.Darken2);
         });
     }
 

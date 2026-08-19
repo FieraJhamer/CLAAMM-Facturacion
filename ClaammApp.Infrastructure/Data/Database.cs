@@ -19,7 +19,20 @@ public static class Database
             MigrarBaseDeDatos(rutaBaseDatos);
 
         MigrarCodigosItems(rutaBaseDatos);
+        AgregarColumnaDescuento(rutaBaseDatos);
         CrearEsquema(rutaBaseDatos);
+    }
+
+    private static void AgregarColumnaDescuento(string rutaBaseDatos)
+    {
+        using var conexion = new SqliteConnection($"Data Source={rutaBaseDatos}");
+        var tablas = conexion.Query<string>("SELECT name FROM sqlite_master WHERE type='table' AND name='Presupuestos'").ToList();
+        if (tablas.Count == 0)
+            return;
+        var columnas = conexion.Query<string>(
+            "SELECT name FROM pragma_table_info('Presupuestos')").ToList();
+        if (!columnas.Contains("Descuento", StringComparer.OrdinalIgnoreCase))
+            conexion.Execute("ALTER TABLE Presupuestos ADD COLUMN Descuento REAL NOT NULL DEFAULT 0");
     }
 
     private static void CrearEsquema(string rutaBaseDatos)
@@ -54,7 +67,8 @@ public static class Database
             CREATE TABLE IF NOT EXISTS Presupuestos (
                 Id INTEGER PRIMARY KEY AUTOINCREMENT,
                 ClienteNombre TEXT NOT NULL,
-                Fecha TEXT NOT NULL
+                Fecha TEXT NOT NULL,
+                Descuento REAL NOT NULL DEFAULT 0
             );
 
             CREATE TABLE IF NOT EXISTS PresupuestoItems (

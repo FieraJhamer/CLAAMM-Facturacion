@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -27,6 +28,7 @@ public partial class PresupuestoEditorWindow : Window
 
         TxtCliente.Text = presupuesto.ClienteNombre;
         FechaPicker.SelectedDate = presupuesto.Fecha;
+        TxtDescuento.Text = presupuesto.DescuentoPorcentaje.ToString("#,##0.##");
 
         _lineas = new ObservableCollection<LineaPresupuestoViewModel>();
         foreach (var item in presupuesto.Items)
@@ -49,9 +51,19 @@ public partial class PresupuestoEditorWindow : Window
             ActualizarTotal();
     }
 
+    private void TxtDescuento_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        _presupuesto.DescuentoPorcentaje = decimal.TryParse(TxtDescuento.Text, out var d) ? d : 0m;
+        ActualizarTotal();
+    }
+
     private void ActualizarTotal()
     {
-        TxtTotal.Text = "TOTAL:  " + Formatos.Moneda(_presupuesto.Total);
+        var partes = new StringBuilder("TOTAL:  " + Formatos.Moneda(_presupuesto.Total));
+        if (_presupuesto.DescuentoPorcentaje > 0)
+            partes.Append($"   (%{_presupuesto.DescuentoPorcentaje:0.##} desc.)");
+        partes.Append("   (+21% IVA)");
+        TxtTotal.Text = partes.ToString();
     }
 
     private void TxtBuscarItem_KeyUp(object sender, KeyEventArgs e) => BuscarItems();
@@ -125,6 +137,7 @@ public partial class PresupuestoEditorWindow : Window
     {
         _presupuesto.ClienteNombre = TxtCliente.Text.Trim();
         _presupuesto.Fecha = FechaPicker.SelectedDate ?? DateTime.Today;
+        _presupuesto.DescuentoPorcentaje = decimal.TryParse(TxtDescuento.Text, out var d) ? d : 0m;
 
         try
         {
