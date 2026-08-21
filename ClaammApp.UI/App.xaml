@@ -96,8 +96,8 @@
         <Style x:Key="BotonNavegacion" TargetType="Button" BasedOn="{StaticResource BotonBase}">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="#D6DAE0"/>
-            <Setter Property="FontSize" Value="15"/>
-            <Setter Property="Padding" Value="18,12"/>
+            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="Padding" Value="22,16"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
             <Setter Property="Template">
                 <Setter.Value>
