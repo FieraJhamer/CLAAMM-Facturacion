@@ -61,7 +61,7 @@
 
                         <StackPanel Grid.Column="0">
                             <TextBlock Text="Buscar ítem por nombre" Style="{StaticResource Etiqueta}"/>
-                            <TextBox x:Name="TxtBuscarItem" Height="34" KeyUp="TxtBuscarItem_KeyUp"/>
+                            <TextBox x:Name="TxtBuscarItem" Height="34" PreviewKeyDown="TxtBuscarItem_PreviewKeyDown" TextChanged="TxtBuscarItem_TextChanged"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="2">

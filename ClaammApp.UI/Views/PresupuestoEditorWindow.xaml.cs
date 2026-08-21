@@ -66,7 +66,43 @@ public partial class PresupuestoEditorWindow : Window
         TxtTotal.Text = partes.ToString();
     }
 
-    private void TxtBuscarItem_KeyUp(object sender, KeyEventArgs e) => BuscarItems();
+    private void TxtBuscarItem_TextChanged(object sender, TextChangedEventArgs e) => BuscarItems();
+
+    private void TxtBuscarItem_PreviewKeyDown(object sender, KeyEventArgs e)
+    {
+        if (ListaResultados.Visibility != Visibility.Visible)
+            return;
+
+        switch (e.Key)
+        {
+            case Key.Down:
+                MoverSeleccion(1);
+                e.Handled = true;
+                break;
+            case Key.Up:
+                MoverSeleccion(-1);
+                e.Handled = true;
+                break;
+            case Key.Enter:
+                if (ListaResultados.SelectedItem is not null)
+                {
+                    AgregarSeleccionado();
+                    e.Handled = true;
+                }
+                break;
+        }
+    }
+
+    private void MoverSeleccion(int desplazamiento)
+    {
+        if (ListaResultados.Items.Count == 0)
+            return;
+
+        var indice = ListaResultados.SelectedIndex + desplazamiento;
+        indice = Math.Clamp(indice, 0, ListaResultados.Items.Count - 1);
+        ListaResultados.SelectedIndex = indice;
+        ListaResultados.ScrollIntoView(ListaResultados.SelectedItem);
+    }
 
     private void BuscarItems()
     {
