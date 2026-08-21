@@ -151,11 +151,11 @@ public class PdfGenerator : IPdfGenerator
 
             col.Item().PaddingTop(6).LineHorizontal(1).LineColor(Colors.Grey.Lighten2);
             col.Item().PaddingTop(6).Text("Observaciones:").FontSize(9).Bold().FontColor(Colors.Grey.Darken2);
-            col.Item().PaddingTop(2).Text("- Las formas de pagos son pactados al comenzar la obra.").FontSize(9).FontColor(Colors.Grey.Darken2);
-            col.Item().PaddingTop(2).Text("- No incluye traslados de resagos").FontSize(9).FontColor(Colors.Grey.Darken2);
-            col.Item().PaddingTop(2).Text("- Las modificaciones de trabajos serán relevadas con precios alternativos").FontSize(9).FontColor(Colors.Grey.Darken2);
-            col.Item().PaddingTop(2).Text("- Con factura A o B se increneta 21% mas a la factura").FontSize(9).FontColor(Colors.Grey.Darken2);
-            col.Item().PaddingTop(2).Text("- Ver los items correspondientes para la aprobacion").FontSize(9).FontColor(Colors.Grey.Darken2);
+            col.Item().PaddingTop(2).Text("Las formas de pagos son pactados al comenzar la obra.").FontSize(9).FontColor(Colors.Grey.Darken2);
+            col.Item().PaddingTop(2).Text(" No incluye traslados de rezagos.").FontSize(9).FontColor(Colors.Grey.Darken2);
+            col.Item().PaddingTop(2).Text("Las modificaciones de trabajos serán relevadas con precios alternativos.").FontSize(9).FontColor(Colors.Grey.Darken2);
+            col.Item().PaddingTop(2).Text("Con factura A o B se incrementa 21% mas a la factura.").FontSize(9).FontColor(Colors.Grey.Darken2);
+            col.Item().PaddingTop(2).Text("Ver los items correspondientes para la aprobación.").FontSize(9).FontColor(Colors.Grey.Darken2);
         });
     }
 
