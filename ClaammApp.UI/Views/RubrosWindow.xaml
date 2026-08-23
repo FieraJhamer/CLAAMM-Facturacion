@@ -33,7 +33,7 @@
                     <ColumnDefinition Width="10"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox x:Name="TxtNombre" Height="34"/>
+                <TextBox x:Name="TxtNombre" Height="34" MaxLength="50"/>
                 <Button Grid.Column="2" x:Name="BtnAgregar" Content="Agregar" Style="{StaticResource BotonPrincipal}"
                         Height="34" Padding="16,6" Click="BtnAgregar_Click"/>
             </Grid>

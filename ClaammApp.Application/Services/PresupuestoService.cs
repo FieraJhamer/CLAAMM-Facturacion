@@ -25,6 +25,8 @@ public class PresupuestoService
     {
         if (string.IsNullOrWhiteSpace(presupuesto.ClienteNombre))
             throw new ValidacionException("El nombre del cliente es obligatorio.");
+        if (presupuesto.DescuentoPorcentaje < 0 || presupuesto.DescuentoPorcentaje > 100)
+            throw new ValidacionException("El descuento debe estar entre 0 y 100.");
         if (presupuesto.Items.Count == 0)
             throw new ValidacionException("El presupuesto debe tener al menos un ítem.");
         if (presupuesto.Items.Any(i => i.Cantidad <= 0))

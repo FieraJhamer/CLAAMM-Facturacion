@@ -25,7 +25,7 @@
             <StackPanel Grid.Column="0">
                 <StackPanel Margin="0,0,0,12">
                     <TextBlock Text="Cliente" Style="{StaticResource Etiqueta}"/>
-                    <TextBox x:Name="TxtCliente" Height="34"/>
+                    <TextBox x:Name="TxtCliente" Height="34" MaxLength="120"/>
                 </StackPanel>
 
                 <StackPanel Margin="0,0,0,12">
@@ -35,7 +35,7 @@
 
                 <StackPanel Margin="0,0,0,12">
                     <TextBlock Text="Descuento (%)" Style="{StaticResource Etiqueta}"/>
-                    <TextBox x:Name="TxtDescuento" Height="34" TextChanged="TxtDescuento_TextChanged"/>
+                    <TextBox x:Name="TxtDescuento" Height="34" PreviewTextInput="TxtDescuento_PreviewTextInput" TextChanged="TxtDescuento_TextChanged"/>
                 </StackPanel>
 
                 <Border Background="White" BorderBrush="{StaticResource BrochaBorde}"
@@ -52,7 +52,7 @@
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0">
                                 <TextBlock Text="Cantidad" Style="{StaticResource Etiqueta}"/>
-                                <TextBox x:Name="TxtCantidad" Height="34" Text="1"/>
+                                <TextBox x:Name="TxtCantidad" Height="34" Text="1" MaxLength="12" PreviewTextInput="TxtCantidad_PreviewTextInput"/>
                             </StackPanel>
                             <Button Grid.Column="2" Content="Agregar ítem" Style="{StaticResource BotonPrincipal}"
                                     VerticalAlignment="Bottom" Height="34" Padding="16,6" Click="BtnAgregar_Click"/>

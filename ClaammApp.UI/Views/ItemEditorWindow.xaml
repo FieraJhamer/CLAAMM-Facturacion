@@ -14,7 +14,7 @@
             <TextBlock x:Name="TituloVentana" Text="Nuevo ítem" Style="{StaticResource TituloPantalla}"/>
 
             <TextBlock Text="Descripción" Style="{StaticResource Etiqueta}"/>
-            <TextBox x:Name="TxtDescripcion" Height="34" Margin="0,0,0,14"/>
+            <TextBox x:Name="TxtDescripcion" Height="34" Margin="0,0,0,14" MaxLength="200"/>
 
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -30,7 +30,7 @@
 
                 <StackPanel Grid.Column="2">
                     <TextBlock Text="Precio unitario" Style="{StaticResource Etiqueta}"/>
-                    <TextBox x:Name="TxtPrecio" Height="34"/>
+                    <TextBox x:Name="TxtPrecio" Height="34" MaxLength="14" PreviewTextInput="TxtPrecio_PreviewTextInput"/>
                 </StackPanel>
             </Grid>
 

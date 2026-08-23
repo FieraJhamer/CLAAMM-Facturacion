@@ -39,9 +39,16 @@ public class LineaPresupuestoViewModel : INotifyPropertyChanged
         get => _item.Cantidad.ToString("#,##0.###", Cultura);
         set
         {
-            if (!decimal.TryParse(value, NumberStyles.Number, Cultura, out var n))
+            if (!Entradas.TryDecimal(value, out var n))
                 return;
-            _item.Cantidad = n;
+
+            if (n <= 0)
+            {
+                OnPropertyChanged();
+                return;
+            }
+
+            _item.Cantidad = Entradas.Redondear(n, 3);
             OnPropertyChanged();
             OnPropertyChanged(nameof(TotalTexto));
         }

@@ -31,20 +31,30 @@ public partial class ItemEditorWindow : Window
 
     private void BtnCancelar_Click(object sender, RoutedEventArgs e) => DialogResult = false;
 
+    private void TxtPrecio_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        => Entradas.SoloDecimal(sender, e);
+
     private void BtnGuardar_Click(object sender, RoutedEventArgs e)
     {
         _item.Descripcion = TxtDescripcion.Text.Trim();
         _item.Unidad = string.IsNullOrWhiteSpace(CboUnidad.Text) ? "un" : CboUnidad.Text.Trim();
         _item.Rubro = CboRubro.Text?.Trim() ?? string.Empty;
 
-        if (!decimal.TryParse(TxtPrecio.Text, out var precio))
+        if (!Entradas.TryDecimal(TxtPrecio.Text, out var precio))
         {
             MessageBox.Show(this, "El precio unitario no es válido.", "CLAAMM", MessageBoxButton.OK, MessageBoxImage.Warning);
             TxtPrecio.Focus();
             return;
         }
 
-        _item.PrecioUnitario = precio;
+        if (precio < 0)
+        {
+            MessageBox.Show(this, "El precio unitario no puede ser negativo.", "CLAAMM", MessageBoxButton.OK, MessageBoxImage.Warning);
+            TxtPrecio.Focus();
+            return;
+        }
+
+        _item.PrecioUnitario = Entradas.Redondear(precio, 2);
 
         try
         {

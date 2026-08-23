@@ -19,22 +19,22 @@
                            Foreground="{StaticResource BrochaGrafito}" Margin="0,0,0,12"/>
 
                 <TextBlock Text="Responsable" Style="{StaticResource Etiqueta}"/>
-                <TextBox x:Name="TxtResponsable" Height="34" Margin="0,0,0,12"/>
+                <TextBox x:Name="TxtResponsable" Height="34" Margin="0,0,0,12" MaxLength="120"/>
 
                 <TextBlock Text="CUIT" Style="{StaticResource Etiqueta}"/>
-                <TextBox x:Name="TxtCuit" Height="34" Margin="0,0,0,12"/>
+                <TextBox x:Name="TxtCuit" Height="34" Margin="0,0,0,12" MaxLength="20"/>
 
                 <TextBlock Text="Dirección" Style="{StaticResource Etiqueta}"/>
-                <TextBox x:Name="TxtDireccion" Height="34" Margin="0,0,0,12"/>
+                <TextBox x:Name="TxtDireccion" Height="34" Margin="0,0,0,12" MaxLength="200"/>
 
                 <TextBlock Text="Ubicación (ciudad y provincia)" Style="{StaticResource Etiqueta}"/>
-                <TextBox x:Name="TxtUbicacion" Height="34" Margin="0,0,0,12"/>
+                <TextBox x:Name="TxtUbicacion" Height="34" Margin="0,0,0,12" MaxLength="120"/>
 
                 <TextBlock Text="Teléfono" Style="{StaticResource Etiqueta}"/>
-                <TextBox x:Name="TxtTelefono" Height="34" Margin="0,0,0,12"/>
+                <TextBox x:Name="TxtTelefono" Height="34" Margin="0,0,0,12" MaxLength="50"/>
 
                 <TextBlock Text="Email" Style="{StaticResource Etiqueta}"/>
-                <TextBox x:Name="TxtEmail" Height="34"/>
+                <TextBox x:Name="TxtEmail" Height="34" MaxLength="100"/>
                 <TextBlock Text="El logo se toma automáticamente del archivo logo.png ubicado junto a la aplicación."
                            FontSize="11" Foreground="#718096" Margin="0,6,0,0" TextWrapping="Wrap"/>
             </StackPanel>

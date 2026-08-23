@@ -51,11 +51,39 @@ public partial class PresupuestoEditorWindow : Window
             ActualizarTotal();
     }
 
+    private bool _saneandoDescuento;
+
+    private void TxtDescuento_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        => Entradas.SoloDecimal(sender, e);
+
+    private void TxtCantidad_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        => Entradas.SoloDecimal(sender, e);
+
     private void TxtDescuento_TextChanged(object sender, TextChangedEventArgs e)
     {
-        _presupuesto.DescuentoPorcentaje = decimal.TryParse(TxtDescuento.Text, out var d) ? d : 0m;
+        if (_saneandoDescuento)
+            return;
+
+        if (!Entradas.TryDecimal(TxtDescuento.Text, out var valor))
+            return;
+
+        var saneado = Entradas.Limitar(Entradas.Redondear(valor, 2), 0m, 100m);
+        _presupuesto.DescuentoPorcentaje = saneado;
         ActualizarTotal();
+
+        if (valor == saneado)
+            return;
+
+        _saneandoDescuento = true;
+        TxtDescuento.Text = saneado.ToString("#,##0.##");
+        TxtDescuento.CaretIndex = TxtDescuento.Text.Length;
+        _saneandoDescuento = false;
     }
+
+    private decimal LeerDescuento()
+        => Entradas.TryDecimal(TxtDescuento.Text, out var d)
+            ? Entradas.Limitar(d, 0m, 100m)
+            : 0m;
 
     private void ActualizarTotal()
     {
@@ -135,12 +163,14 @@ public partial class PresupuestoEditorWindow : Window
             return;
         }
 
-        if (!decimal.TryParse(TxtCantidad.Text, out var cantidad) || cantidad <= 0)
+        if (!Entradas.TryDecimal(TxtCantidad.Text, out var cantidad) || cantidad <= 0)
         {
             MessageBox.Show(this, "Ingresá una cantidad mayor a cero.", "CLAAMM", MessageBoxButton.OK, MessageBoxImage.Warning);
             TxtCantidad.Focus();
             return;
         }
+
+        cantidad = Entradas.Redondear(cantidad, 3);
 
         Composicion.Presupuestos.AgregarItem(_presupuesto, seleccion.Item, cantidad);
         _lineas.Add(CrearLinea(_presupuesto.Items[^1]));
@@ -173,7 +203,7 @@ public partial class PresupuestoEditorWindow : Window
     {
         _presupuesto.ClienteNombre = TxtCliente.Text.Trim();
         _presupuesto.Fecha = FechaPicker.SelectedDate ?? DateTime.Today;
-        _presupuesto.DescuentoPorcentaje = decimal.TryParse(TxtDescuento.Text, out var d) ? d : 0m;
+        _presupuesto.DescuentoPorcentaje = LeerDescuento();
 
         try
         {
