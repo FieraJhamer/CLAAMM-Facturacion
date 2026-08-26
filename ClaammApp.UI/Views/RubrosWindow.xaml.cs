@@ -10,6 +10,7 @@ public partial class RubrosWindow : Window
     {
         InitializeComponent();
         Ventanas.AjustarAlAreaTrabajo(this);
+        Ventanas.HabilitarCierreConEscape(this);
         Cargar();
     }
 

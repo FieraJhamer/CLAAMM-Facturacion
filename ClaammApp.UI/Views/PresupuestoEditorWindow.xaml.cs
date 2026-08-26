@@ -14,11 +14,15 @@ public partial class PresupuestoEditorWindow : Window
 {
     private readonly Domain.Entities.Presupuesto _presupuesto;
     private readonly ObservableCollection<LineaPresupuestoViewModel> _lineas;
+    private bool _cargando = true;
+    private bool _modificado;
 
     public PresupuestoEditorWindow(Domain.Entities.Presupuesto presupuesto)
     {
         InitializeComponent();
         Ventanas.AjustarAlAreaTrabajo(this);
+        Ventanas.HabilitarCierreConEscape(this);
+        Ventanas.ConfirmarSalidaSinGuardar(this, () => _modificado);
 
         _presupuesto = presupuesto;
 
@@ -36,6 +40,8 @@ public partial class PresupuestoEditorWindow : Window
         GridLineas.ItemsSource = _lineas;
 
         ActualizarTotal();
+
+        _cargando = false;
     }
 
     private LineaPresupuestoViewModel CrearLinea(Domain.Entities.PresupuestoItem item)
@@ -48,7 +54,23 @@ public partial class PresupuestoEditorWindow : Window
     private void Linea_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(LineaPresupuestoViewModel.TotalTexto))
+        {
+            if (!_cargando)
+                _modificado = true;
             ActualizarTotal();
+        }
+    }
+
+    private void TxtCliente_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (!_cargando)
+            _modificado = true;
+    }
+
+    private void FechaPicker_SelectedDateChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (!_cargando)
+            _modificado = true;
     }
 
     private bool _saneandoDescuento;
@@ -69,6 +91,8 @@ public partial class PresupuestoEditorWindow : Window
 
         var saneado = Entradas.Limitar(Entradas.Redondear(valor, 2), 0m, 100m);
         _presupuesto.DescuentoPorcentaje = saneado;
+        if (!_cargando)
+            _modificado = true;
         ActualizarTotal();
 
         if (valor == saneado)
@@ -174,6 +198,7 @@ public partial class PresupuestoEditorWindow : Window
 
         Composicion.Presupuestos.AgregarItem(_presupuesto, seleccion.Item, cantidad);
         _lineas.Add(CrearLinea(_presupuesto.Items[^1]));
+        _modificado = true;
         ActualizarTotal();
 
         TxtBuscarItem.Clear();
@@ -190,6 +215,7 @@ public partial class PresupuestoEditorWindow : Window
 
         _lineas.Remove(linea);
         _presupuesto.Items.Remove(linea.Item);
+        _modificado = true;
         ActualizarTotal();
     }
 
@@ -208,6 +234,7 @@ public partial class PresupuestoEditorWindow : Window
         try
         {
             Composicion.Presupuestos.Guardar(_presupuesto);
+            _modificado = false;
         }
         catch (Exception ex)
         {

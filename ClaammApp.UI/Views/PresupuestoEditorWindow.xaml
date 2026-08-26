@@ -25,12 +25,12 @@
             <StackPanel Grid.Column="0">
                 <StackPanel Margin="0,0,0,12">
                     <TextBlock Text="Cliente" Style="{StaticResource Etiqueta}"/>
-                    <TextBox x:Name="TxtCliente" Height="34" MaxLength="120"/>
+                    <TextBox x:Name="TxtCliente" Height="34" MaxLength="120" TextChanged="TxtCliente_TextChanged"/>
                 </StackPanel>
 
                 <StackPanel Margin="0,0,0,12">
                     <TextBlock Text="Fecha" Style="{StaticResource Etiqueta}"/>
-                    <DatePicker x:Name="FechaPicker" Height="34" FontSize="14" VerticalContentAlignment="Center"/>
+                    <DatePicker x:Name="FechaPicker" Height="34" FontSize="14" VerticalContentAlignment="Center" SelectedDateChanged="FechaPicker_SelectedDateChanged"/>
                 </StackPanel>
 
                 <StackPanel Margin="0,0,0,12">

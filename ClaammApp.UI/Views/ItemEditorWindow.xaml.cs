@@ -7,11 +7,16 @@ namespace ClaammApp.UI.Views;
 public partial class ItemEditorWindow : Window
 {
     private readonly Item _item;
+    private string _descripcionOriginal = string.Empty;
+    private string _unidadOriginal = string.Empty;
+    private string _rubroOriginal = string.Empty;
+    private decimal _precioOriginal;
 
     public ItemEditorWindow(Item item)
     {
         InitializeComponent();
         Ventanas.AjustarAlAreaTrabajo(this);
+        Ventanas.HabilitarCierreConEscape(this);
 
         _item = item;
 
@@ -27,6 +32,23 @@ public partial class ItemEditorWindow : Window
         CboRubro.Text = item.Rubro;
         if (string.IsNullOrWhiteSpace(item.Rubro) && rubros.Count > 0)
             CboRubro.SelectedIndex = 0;
+
+        _descripcionOriginal = TxtDescripcion.Text;
+        _unidadOriginal = CboUnidad.Text;
+        _rubroOriginal = CboRubro.Text ?? string.Empty;
+        _precioOriginal = Entradas.TryDecimal(TxtPrecio.Text, out var precioInicial) ? precioInicial : 0m;
+
+        Ventanas.ConfirmarSalidaSinGuardar(this, HayCambiosSinGuardar);
+    }
+
+    private bool HayCambiosSinGuardar()
+    {
+        Entradas.TryDecimal(TxtPrecio.Text, out var precio);
+
+        return TxtDescripcion.Text != _descripcionOriginal
+            || CboUnidad.Text != _unidadOriginal
+            || (CboRubro.Text ?? string.Empty) != _rubroOriginal
+            || precio != _precioOriginal;
     }
 
     private void BtnCancelar_Click(object sender, RoutedEventArgs e) => DialogResult = false;
